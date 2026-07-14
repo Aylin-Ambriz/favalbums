@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>aylin's records</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blush:      #f9f0f3;
+      --rose:       #e8c5cf;
+      --rose-deep:  #c9a0b0;
+      --ink:        #2d2020;
+      --ink-light:  #7a5c64;
+      --white:      #ffffff;
+    }
+
+    body {
+      background: var(--blush);
+      color: var(--ink);
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      padding: 4rem 2rem 2rem;
+      text-align: center;
+      border-bottom: 1px solid var(--rose);
+    }
+
+    header h1 {
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      line-height: 1;
+    }
+
+    header p {
+      margin-top: 0.75rem;
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+    }
+
+    /* ── Grid ── */
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 2rem 5rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 1.5rem;
+    }
+
+    /* ── Album card ── */
+    .album {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .album-cover {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      border-radius: 3px;
+      display: block;
+      background: var(--rose);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .album:hover .album-cover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(45, 32, 32, 0.13);
+    }
+
+    .album-title {
+      font-size: 0.8rem;
+      font-weight: 400;
+      color: var(--ink);
+      line-height: 1.3;
+    }
+
+    .album-artist {
+      font-size: 0.75rem;
+      color: var(--ink-light);
+      margin-top: -0.3rem;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.75rem;
+      color: var(--rose-deep);
+      letter-spacing: 0.08em;
+      border-top: 1px solid var(--rose);
+    }
+
+    @media (max-width: 480px) {
+      .grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 1rem; }
+      header { padding: 3rem 1.5rem 1.5rem; }
+      main { padding: 2rem 1.5rem 4rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .album-cover { transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>aylin's records</h1>
+  <p>albums that live in me</p>
+</header>
+
+<main>
+  <div class="grid" id="grid"></div>
+</main>
+
+<footer>updated as i go ✦</footer>
+
+<script>
+  /*
+  ═══════════════════════════════════════════════════
+  ADD OR REMOVE ALBUMS HERE.
+  Each entry needs:
+    title  — album name
+    artist — artist name
+    cover  — filename of the image (put the file in an
+              "covers/" folder next to this index.html)
+              OR a full URL to an image online
+  ═══════════════════════════════════════════════════
+  */
+  const albums = [
+    {
+      title:  "Emilie Simon",
+      artist: "Emilie Simon",
+      cover:  "covers/emilie-simon.jpg",
+    },
+    {
+      title:  "Végétal",
+      artist: "Emilie Simon",
+      cover:  "covers/vegetal.jpg",
+    },
+    {
+      title:  "Natalia Lafourcade",
+      artist: "Natalia Lafourcade",
+      cover:  "covers/natalia-lafourcade.jpg",
+    },
+    {
+      title:  "Equilibria",
+      artist: "Sabrina Malheiros",
+      cover:  "covers/equilibria.jpg",
+    },
+    // ── add more below this line ──
+    // {
+    //   title:  "Album Title",
+    //   artist: "Artist Name",
+    //   cover:  "covers/filename.jpg",
+    // },
+  ];
+
+  /* ── render ── */
+  const grid = document.getElementById("grid");
+  albums.forEach(({ title, artist, cover }) => {
+    const el = document.createElement("div");
+    el.className = "album";
+    el.innerHTML = `
+      <img class="album-cover" src="${cover}" alt="${title} by ${artist}" loading="lazy">
+      <span class="album-title">${title}</span>
+      <span class="album-artist">${artist}</span>
+    `;
+    grid.appendChild(el);
+  });
+</script>
+
+</body>
+</html>
